@@ -59,22 +59,16 @@ public class CSV_Comp {
                 }
             }
             if (!found) {
-                System.out.println(s1);
                 output.add(s1);
             } else {
                 if (!Objects.equals(s1, s1_matched)) {
-                    System.out.println(s1);
-                    System.out.println(s1_matched);
                     output.add(s1);
                     output.add(s1_matched);
                 }
                 csv2.remove(s1_matched);
             }
         }
-        for (String remaining : csv2) {
-            System.out.println(remaining);
-            output.add(remaining);
-        }
+        output.addAll(csv2);
         return output;
     }
 
