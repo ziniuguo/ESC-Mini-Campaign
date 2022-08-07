@@ -1,12 +1,13 @@
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CSVCompTest {
 
@@ -19,15 +20,17 @@ public class CSVCompTest {
     };
 
     @Test
-    public void testRead() throws IOException {
+    public void testRead() {
         CSV_Comp testClass = new CSV_Comp("no_file_1.csv", "no_file_2.csv", combination);
-        testClass.read();
+        Exception e = assertThrows(FileNotFoundException.class, testClass::compare);
+        assertTrue(e.getMessage().contains("No such file or directory"));
     }
 
     @Test
-    public void testRead2() throws IOException {
+    public void testRead2() {
         CSV_Comp testClass = new CSV_Comp("sample_file_1.csv", "no_file_2.csv", combination);
-        testClass.read();
+        Exception e = assertThrows(FileNotFoundException.class, testClass::compare);
+        assertTrue(e.getMessage().contains("No such file or directory"));
     }
 
     @Test
@@ -63,28 +66,17 @@ public class CSVCompTest {
 
     // test_3: no. of columns
     @Test
-    public void testColumns1() throws IOException {
+    public void testColumns1() {
         CSV_Comp testClass = new CSV_Comp("test_3_1.csv", "test_3_3.csv", combination);
-        testClass.read();
-        ArrayList<String> correctOutput = new ArrayList<>(
-                List.of(
-                        "\"ID1\",\"BOS963211\",\"USD\",\"SAVINGS\",\"962510\""
-                )
-        );
-        assertEquals(new HashSet<>(testClass.compare()), new HashSet<>(correctOutput));
+        Exception e = assertThrows(RuntimeException.class, testClass::compare);
+        assertTrue(e.getMessage().contains("File is empty"));
     }
 
     @Test
-    public void testColumns2() throws IOException {
+    public void testColumns2() {
         CSV_Comp testClass = new CSV_Comp("test_3_1.csv", "test_3_2.csv", combination);
-        testClass.read();
-        ArrayList<String> correctOutput = new ArrayList<>(
-                Arrays.asList(
-                        "\"ID1\",\"BOS963211\",\"USD\",\"SAVINGS\",\"962510\"",
-                        "\"ID1\",\"USD\",\"SAVINGS\",\"962510\""
-                )
-        );
-        assertEquals(new HashSet<>(testClass.compare()), new HashSet<>(correctOutput));
+        Exception e = assertThrows(RuntimeException.class, testClass::compare);
+        assertTrue(e.getMessage().contains("Missing column or value"));
     }
 
     // test_4: order of index
@@ -117,7 +109,7 @@ public class CSVCompTest {
                 Arrays.asList(
                         "\"ID2\",\"BOS85992\",\"USD\",\"CURRENT\",\"989898\"",
                         "\"ID2\",\"BOS85992\",\"AUD\",\"CURRENT\",\"989898\""
-                        )
+                )
         );
         assertEquals(new HashSet<>(testClass.compare()), new HashSet<>(correctOutput));
     }

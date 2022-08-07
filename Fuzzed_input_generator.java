@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,14 +18,13 @@ public class Fuzzed_input_generator {
 
 
         output.add("\"Customer ID#\",\"Account No.\",\"Currency\",\"Type\",\"Balance\"");
-//        output.add(generatedString);
+        output.add(generatedString);
         System.out.println(output);
         return output;
     }
 
 
     public static void main(String[] args) throws IOException {
-        generate_fuzzed_input();
         File_Writer.write_file(generate_fuzzed_input(), "fuzzed_csv.csv");
     }
 

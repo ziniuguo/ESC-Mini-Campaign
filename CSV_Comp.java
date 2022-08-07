@@ -8,7 +8,7 @@ public class CSV_Comp {
     private final List<Integer> combination;
 
 
-    public CSV_Comp (String path1, String path2, List<Integer> combination) {
+    public CSV_Comp(String path1, String path2, List<Integer> combination) {
         this.path1 = path1;
         this.path2 = path2;
         this.combination = combination;
@@ -30,6 +30,9 @@ public class CSV_Comp {
         sc.close();
         sc2.close();
         ArrayList<ArrayList<String>> output = new ArrayList<>();
+        if ((str_arr1.size() == 0) || (str_arr2.size() == 0)) {
+            throw new IndexOutOfBoundsException("File is empty");
+        }
         output.add(str_arr1);
         output.add(str_arr2);
         return output;
@@ -41,10 +44,16 @@ public class CSV_Comp {
         ArrayList<String> output = new ArrayList<>();
         for (String s1 : csv1) {
             String[] val1 = s1.split(",");
+            if (val1.length != 5) {
+                throw new IndexOutOfBoundsException("Missing column or value");
+            }
             String s1_matched = "";
             boolean found = false;
             for (String s2 : csv2) {
                 String[] val2 = s2.split(",");
+                if (val2.length != 5) {
+                    throw new IndexOutOfBoundsException("Missing column or value");
+                }
                 boolean matched = true;
                 for (int i : combination) {
                     if (!Objects.equals(val1[i], val2[i])) {
