@@ -71,34 +71,4 @@ public class CSV_Comp {
         output.addAll(csv2);
         return output;
     }
-
-    public void write_CSV(String outputName) throws IOException {
-        ArrayList<String> unformatted = compare();
-        ArrayList<String[]> formatted = new ArrayList<>();
-        for (String line : unformatted) {
-            String[] newLine = line.split(",");
-            formatted.add(newLine);
-        }
-
-        File csvFile = new File(outputName);
-        FileWriter fileWriter = new FileWriter(csvFile);
-
-        //write header line here if you need.
-        for (String[] data : formatted) {
-            StringBuilder line = new StringBuilder();
-            for (int i = 0; i < data.length; i++) {
-//                line.append("\"");
-                line.append(data[i]
-//                        .replaceAll("\"","\"\"")
-                );
-//                line.append("\"");
-                if (i != data.length - 1) {
-                    line.append(',');
-                }
-            }
-            line.append("\n");
-            fileWriter.write(line.toString());
-        }
-        fileWriter.close();
-    }
 }
