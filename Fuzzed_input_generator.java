@@ -64,8 +64,8 @@ public class Fuzzed_input_generator {
 
     public static void main(String[] args) throws IOException {
         ArrayList<ArrayList<String>> input = generate_fuzzed_input();
-        File_Writer.write_file(input.get(0), "test_csv_1.csv");
-        File_Writer.write_file(input.get(1), "test_csv_2.csv");
+        File_Writer.write_file(input.get(0), "chunjie/test_csv_1.csv");
+        File_Writer.write_file(input.get(1), "chunjie/test_csv_2.csv");
     }
 
 }
