@@ -1,5 +1,15 @@
 # testing plan
 
+## how to run
+
+```
+CSV_Comp testClass = new CSV_Comp("your_file_1_name.csv", "your_file_2_name.csv", combination);
+ArrayList<String> result = testClass.compare();
+File_Writer.write_file(result, "result.csv");
+```
+
+## test
+
 ### test_1: file existence
 partition: 
  - two file do not exist
